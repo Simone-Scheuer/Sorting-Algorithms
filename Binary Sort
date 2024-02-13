@@ -1,0 +1,30 @@
+def binary_search(arr, val, start, end):
+    # If the array is empty or the value is bigger than the last element, place it at the end
+    if start == end:
+        if arr[start] < val:
+            return start + 1
+        else:
+            return start
+
+    if start > end:
+        return start
+
+    mid = (start + end) // 2
+    if arr[mid] < val:
+        return binary_search(arr, val, mid + 1, end)
+    elif arr[mid] > val:
+        return binary_search(arr, val, start, mid - 1)
+    else:
+        return mid
+
+def binary_insertion_sort(arr):
+    for i in range(1, len(arr)):
+        val = arr[i]
+        j = binary_search(arr, val, 0, i - 1)
+        arr = arr[:j] + [val] + arr[j:i] + arr[i+1:]
+    return arr
+
+# Example usage
+my_list = [37, 23, 0, 17, 22, 31, 13, 8]
+sorted_list = binary_insertion_sort(my_list)
+print("Sorted list:", sorted_list)
